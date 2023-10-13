@@ -32,8 +32,7 @@ public class SecurityConfig {
                         .permitAll())
                 .authorizeHttpRequests(authorization -> authorization
                         .requestMatchers("/", "/login", "logout", "/signup", "/css/**", "/*.ico", "/*.js", "/error").permitAll()
-                        .anyRequest().permitAll())
-                .build();
+                        .anyRequest().permitAll());
 
         return http.build();
     }
