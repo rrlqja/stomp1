@@ -15,5 +15,9 @@ public class Chat extends BaseTimeEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @JoinColumn(name = "chatroom_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Chatroom chatroom;
+
     private String content;
 }
