@@ -82,7 +82,7 @@
     </div>
 
     <div class="chatroomList">
-        <div class="chatroom" th:each="chatroom : ${chatroomList?.getContent()}">
+        <div class="chatroom" th:each="chatroom : ${chatroomPage?.getContent()}">
             <div class="chatId" th:text="${chatroom.id}"></div>
             <div class="chatName" th:onclick="|location.href='@{/chatroom/{id}(id=${chatroom.id})}'|" th:text="${chatroom.name}"></div>
         </div>
