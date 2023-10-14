@@ -45,7 +45,7 @@ public class InitData {
             chatroom.setName("chatA");
             chatroomService.save(chatroom);
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 100; i++) {
                 Chat chat = new Chat();
                 chat.setUser(user);
                 chat.setChatroom(chatroom);
