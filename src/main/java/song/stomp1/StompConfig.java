@@ -18,8 +18,8 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setUserDestinationPrefix("/app")
-                .setApplicationDestinationPrefixes("/topic");
+        registry.setApplicationDestinationPrefixes("/app")
+                .enableSimpleBroker("/topic");
     }
 
     @Override
