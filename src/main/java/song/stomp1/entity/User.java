@@ -1,4 +1,4 @@
-package song.stomp1.controller.entity;
+package song.stomp1.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

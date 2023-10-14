@@ -1,11 +1,11 @@
-package song.stomp1.controller.service;
+package song.stomp1.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import song.stomp1.controller.entity.User;
-import song.stomp1.controller.repository.UserJpaRepository;
+import song.stomp1.entity.User;
+import song.stomp1.repository.UserJpaRepository;
 
 @Slf4j
 @Service
