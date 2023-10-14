@@ -21,8 +21,6 @@ public class SecurityConfig {
                                 .loginPage("/login")
                                 .usernameParameter("username")
                                 .passwordParameter("password")
-                                .successForwardUrl("/")
-                                .failureForwardUrl("/login")
 //                        .successHandler()
 //                        .failureHandler()
                 )
