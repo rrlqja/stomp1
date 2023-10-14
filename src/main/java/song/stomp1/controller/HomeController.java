@@ -24,7 +24,7 @@ public class HomeController {
     public String getHome(@PageableDefault Pageable pageable,
                           Model model) {
 
-        Page<Chatroom> chatroomPage = chatroomService.getChatroom(pageable);
+        Page<Chatroom> chatroomPage = chatroomService.getChatroomPage(pageable);
 
         model.addAttribute("chatroomPage", chatroomPage);
 
