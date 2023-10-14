@@ -3,6 +3,7 @@
 <head>
     <title>Chatroom</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="/js/stomp.js"></script>
     <style>
         body {
             background-color: #f5f5f5;
@@ -23,6 +24,17 @@
             overflow-y: auto;
             border: 1px solid #ccc;
         }
+
+        .inputArea {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        #messageInput {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -32,14 +44,59 @@
             <span th:text="${chatDto.content}">message</span>
         </div>
     </div>
+    <div class="inputArea">
+        <input type="text" id="inputMessage" placeholder="메시지 입력">
+        <button id="sendMessage">전송</button>
+    </div>
 </div>
 
 <script>
+    var socket = new WebSocket('ws://localhost:8080/stomp');
+    var stompClient = Stomp.over(socket);
 
+    stompClient.connect({}, function(frame) {
+        console.log('Connected: '+frame);
 
-    window.onload = function() {
+        stompClient.subscribe('/topic/chat/1', function(messageOutput) {
+            console.log(messageOutput.body);
+            addMessageToChatList(messageOutput.body);
+            scrollDown();
+        });
+    });
+
+    document.getElementById('sendMessage').addEventListener('click', function() {
+        var messageContent = document.getElementById('inputMessage').value.trim();
+
+        if(messageContent && stompClient) {
+            var chatMessage = {
+                content: messageContent
+            };
+            stompClient.send("/app/chat/1", {}, JSON.stringify(chatMessage));
+            document.getElementById('inputMessage').value = ''; // 입력란 비우기
+        }
+    });
+
+    function addMessageToChatList(messageContent) {
+        var chatList = document.querySelector(".chattingList");
+
+        var newChatDiv = document.createElement("div");
+        newChatDiv.className = "chat";
+
+        var newSpan = document.createElement("span");
+        newSpan.textContent = messageContent;
+
+        newChatDiv.appendChild(newSpan);
+
+        chatList.appendChild(newChatDiv);
+    }
+
+    function scrollDown() {
         var chatList = document.querySelector('.chattingList');
         chatList.scrollTop = chatList.scrollHeight;
+    }
+
+    window.onload = function() {
+        scrollDown();
     }
 </script>
 </body>
