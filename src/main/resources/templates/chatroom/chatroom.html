@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Chatroom</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            padding-top: 200px;
+        }
+
+        .container {
+            min-width: 330px;
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chattingList {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="chattingList">
+        <div class="chat" th:each="chatDto : ${chatroomDto.chatDtoList}">
+            <span th:text="${chatDto.content}">message</span>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    window.onload = function() {
+        var chatList = document.querySelector('.chattingList');
+        chatList.scrollTop = chatList.scrollHeight;
+    }
+</script>
+</body>
+</html>
