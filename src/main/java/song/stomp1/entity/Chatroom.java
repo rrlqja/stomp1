@@ -17,6 +17,8 @@ public class Chatroom {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
 
+    private String name;
+
     @OneToMany(mappedBy = "chatroom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Chat> chatList = new ArrayList<>();
 }
