@@ -15,7 +15,7 @@ public class ChatService {
     private final ChatJpaRepository chatRepository;
 
     @Transactional
-    private Long save(Chat chat) {
+    public Long save(Chat chat) {
 
         Chat saveChat = chatRepository.save(chat);
 
