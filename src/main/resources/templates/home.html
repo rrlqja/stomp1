@@ -70,14 +70,14 @@
 <div class="container">
     <div class="header-container">
         <div class="header-right">
-            <div sec:authorize="!isAuthenticated()">
-                <a href="/login">
-                    <a th:href="@{/login}" class="btn btn-outline-primary">login</a>
-                </a>
-                <a href="/signup">
-                    <a th:href="@{/signup}" class="btn btn-outline-secondary">sign-up</a>
-                </a>
-            </div>
+<!--            <div sec:authorize="!isAuthenticated()">-->
+            <a href="/login">
+                <a th:href="@{/login}" class="btn btn-outline-primary">login</a>
+            </a>
+            <a href="/signup">
+                <a th:href="@{/signup}" class="btn btn-outline-secondary">sign-up</a>
+            </a>
+<!--            </div>-->
         </div>
     </div>
 

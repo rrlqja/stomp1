@@ -20,4 +20,9 @@ public class Chat extends BaseTimeEntity{
     private Chatroom chatroom;
 
     private String content;
+
+    public void setChatroom(Chatroom chatroom) {
+        this.chatroom = chatroom;
+        chatroom.getChatList().add(this);
+    }
 }
