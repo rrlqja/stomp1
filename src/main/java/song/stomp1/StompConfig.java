@@ -48,8 +48,8 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
         AuthorizationManager<Message<?>> authorizationRule = MessageMatcherDelegatingAuthorizationManager.builder()
-                .nullDestMatcher().authenticated()
-                .simpSubscribeDestMatchers("/topic/**").authenticated()
+                .nullDestMatcher().permitAll()
+                .simpSubscribeDestMatchers("/topic/**").permitAll()
                 .simpDestMatchers("/app/**").authenticated()
                 .anyMessage().denyAll()
                 .build();
