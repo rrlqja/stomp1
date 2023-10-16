@@ -44,7 +44,7 @@
             <span th:text="${chatDto.username + ': ' + chatDto.content}">message</span>
         </div>
     </div>
-    <div class="inputArea">
+    <div class="inputArea" sec:authorize="isAuthenticated()">
         <input type="text" id="inputMessage" placeholder="메시지 입력">
         <button id="sendMessage">전송</button>
     </div>
@@ -64,17 +64,20 @@
         });
     });
 
-    document.getElementById('sendMessage').addEventListener('click', function() {
-        var messageContent = document.getElementById('inputMessage').value.trim();
+    var sendMessageButton = document.getElementById('sendMessage');
+    if (sendMessageButton) {
+        document.getElementById('sendMessage').addEventListener('click', function() {
+            var messageContent = document.getElementById('inputMessage').value.trim();
 
-        if(messageContent && stompClient) {
-            var chatMessage = {
-                content: messageContent
-            };
-            stompClient.send("/app/chat/1", {}, JSON.stringify(chatMessage));
-            document.getElementById('inputMessage').value = ''; // 입력란 비우기
-        }
-    });
+            if(messageContent && stompClient) {
+                var chatMessage = {
+                    content: messageContent
+                };
+                stompClient.send("/app/chat/1", {}, JSON.stringify(chatMessage));
+                document.getElementById('inputMessage').value = ''; // 입력란 비우기
+            }
+        });
+    }
 
     function addMessageToChatList(messageContent) {
         var message = JSON.parse(messageContent);
