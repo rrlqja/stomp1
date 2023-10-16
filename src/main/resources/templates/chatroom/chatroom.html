@@ -28,7 +28,7 @@
         .inputArea {
             display: flex;
             justify-content: space-between;
-            padding: 10px;
+            padding: 5px;
         }
 
         #messageInput {
@@ -41,7 +41,7 @@
 <div class="container">
     <div class="chattingList">
         <div class="chat" th:each="chatDto : ${chatroomDto.chatDtoList}">
-            <span th:text="${chatDto.content}">message</span>
+            <span th:text="${chatDto.username + ': ' + chatDto.content}">message</span>
         </div>
     </div>
     <div class="inputArea">
@@ -77,13 +77,18 @@
     });
 
     function addMessageToChatList(messageContent) {
+        var message = JSON.parse(messageContent);
+
+        var username = message.username;
+        var content = message.content;
+
         var chatList = document.querySelector(".chattingList");
 
         var newChatDiv = document.createElement("div");
         newChatDiv.className = "chat";
 
         var newSpan = document.createElement("span");
-        newSpan.textContent = messageContent;
+        newSpan.textContent = username + ": " + content;
 
         newChatDiv.appendChild(newSpan);
 

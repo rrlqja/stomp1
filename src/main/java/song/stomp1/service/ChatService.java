@@ -2,11 +2,13 @@ package song.stomp1.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import song.stomp1.dto.ChatDto;
 import song.stomp1.entity.Chat;
 import song.stomp1.entity.Chatroom;
 import song.stomp1.entity.User;
@@ -46,7 +48,19 @@ public class ChatService {
         Chat saveChat = chatRepository.save(chat);
         log.info("[save chat] chatId = {}, userId = {}, chatroomId = {}", saveChat.getId(), findUser.getId(), findChatroom.getId());
 
-        return saveChat.getContent();
+        String saveChatJson = getSaveChatJson(saveChat);
+        return saveChatJson;
+    }
+
+    private String getSaveChatJson(Chat saveChat) {
+        String jsonContent = null;
+        ChatDto chatDto = new ChatDto(saveChat);
+        try {
+            jsonContent = objectMapper.writeValueAsString(chatDto);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("메시지 파싱 에러");
+        }
+        return jsonContent;
     }
 
     private String getContent(Message<String> message) {
